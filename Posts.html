@@ -11,7 +11,7 @@
 
 
 
-<title>Making Venn and Euler Diagrams in R</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,8 +19,10 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
@@ -166,16 +168,103 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
+
+
+
+
 <script>
-$(document).ready(function () {
-  window.initializeCodeFolding("show" === "show");
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
 });
 </script>
 
+<style type="text/css">
 
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -196,10 +285,7 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="vennDiagram_v5.html">Posts</a>
-</li>
-<li>
-  <a href="about.html">About</a>
+  <a href="Posts.html">Posts</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -222,28 +308,22 @@ $(document).ready(function () {
 
 <div class="fluid-row" id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
 
 
-
-<h1 class="title toc-ignore">Making Venn and Euler Diagrams in R</h1>
 
 </div>
 
 
+<p></br> </br></p>
+<div id="VD" class="section level1">
+<h1>Venn and Euler Diagrams in R</h1>
 <hr />
 <div id="a-quick-tutorial-focusing-on-the-different-input-formats-and-features-of-four-venn-diagram-packages." class="section level5">
 <h5>A quick tutorial focusing on the different input formats and features of four Venn diagram packages.</h5>
 <p></br> <strong>Not interested in using r? <a href="#NonProgramming">Click here</a> to find links to non-programming, web-based solutions.</strong> </br> </br></p>
 </div>
-<div id="summary-of-packages-in-tutorial" class="section level4">
-<h4>Summary of packages in tutorial:</h4>
+<div id="summary-of-packages-in-tutorial" class="section level3">
+<h3>Summary of packages in tutorial:</h3>
 <ul>
 <li><a href="#Venn"><strong>Venn</strong></a>
 <ul>
@@ -314,7 +394,7 @@ venn(ID_list,
      cexil = 1.5, # Change intersection labels
      cexsn = 1.25, # Change set name labels
      zcolor = c(&quot;blue&quot;, &quot;red&quot;, &quot;yellow&quot;, &quot;green&quot;), opacity = 0.5)</code></pre>
-<p><img src="vennDiagram_v5_files/figure-html/unnamed-chunk-3-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p><img src="Posts_files/figure-html/unnamed-chunk-3-1.png" width="384" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="VennDiagram" class="section level3">
@@ -335,7 +415,7 @@ myVenn &lt;- venn.diagram(x=ID_list[1:4], filename = NULL,
    
 grid.newpage()
 grid.draw(myVenn)</code></pre>
-<p><img src="vennDiagram_v5_files/figure-html/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p><img src="Posts_files/figure-html/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>myVenn &lt;- venn.diagram(x=ID_list[1:3], filename = NULL, fill = c(&quot;blue&quot;, &quot;red&quot;, &quot;yellow&quot;), 
                      alpha = 0.5, col=&quot;transparent&quot;,
                      cex = 1.5, fontface=&quot;bold&quot;, # Intersection label size and style
@@ -347,7 +427,7 @@ grid.draw(myVenn)</code></pre>
    
 grid.newpage()
 grid.draw(myVenn)</code></pre>
-<p><img src="vennDiagram_v5_files/figure-html/unnamed-chunk-4-2.png" width="384" style="display: block; margin: auto;" /></p>
+<p><img src="Posts_files/figure-html/unnamed-chunk-4-2.png" width="384" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>myVenn &lt;- venn.diagram(x=ID_list[c(1,3,4)], fill = c(&quot;blue&quot;, &quot;red&quot;, &quot;yellow&quot;),
                      alpha = 0.5, fontface = &quot;bold&quot;,
                      cat.fontface = &quot;bold&quot;,  
@@ -356,7 +436,7 @@ grid.draw(myVenn)</code></pre>
 
 grid.newpage()
 grid.draw(myVenn)</code></pre>
-<p><img src="vennDiagram_v5_files/figure-html/unnamed-chunk-4-3.png" width="384" style="display: block; margin: auto;" /></p>
+<p><img src="Posts_files/figure-html/unnamed-chunk-4-3.png" width="384" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>myVenn &lt;- venn.diagram(x=ID_list[c(1,4)], fill = c(&quot;blue&quot;, &quot;yellow&quot;),
                      alpha = 0.5, fontface = &quot;bold&quot;,
                      cat.fontface = &quot;bold&quot;, 
@@ -366,7 +446,7 @@ grid.draw(myVenn)</code></pre>
 
 grid.newpage()
 grid.draw(myVenn)</code></pre>
-<p><img src="vennDiagram_v5_files/figure-html/unnamed-chunk-4-4.png" width="384" style="display: block; margin: auto;" /></p>
+<p><img src="Posts_files/figure-html/unnamed-chunk-4-4.png" width="384" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
 <div id="Countmatrix" class="section level3">
@@ -397,7 +477,7 @@ head(ID_counts)</code></pre>
 # Input is a count matrix
 fit &lt;- euler(ID_counts[2:4])
 plot(fit, quantities=TRUE)</code></pre>
-<p><img src="vennDiagram_v5_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="Posts_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <div id="however-eulerr-diagrams-can-be-tricky-sometimes" class="section level5">
 <h5>However, Eulerr diagrams can be tricky sometimes …</h5>
 <p>Notice that Eulerr is missing the overlap between Sample 2 and the Control (Gene_39):</p>
@@ -447,7 +527,7 @@ plot(fit, quantities=TRUE)</code></pre>
 <h5>Gene_39 is also missing below. Some relationships are difficult to show in euler diagrams.</h5>
 <pre class="r"><code>fit &lt;- euler(ID_counts[2:5])
 plot(fit, quantities=TRUE)</code></pre>
-<p><img src="vennDiagram_v5_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="Posts_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 </div>
 <div id="Limma" class="section level3">
@@ -469,11 +549,11 @@ library(&quot;limma&quot;)
 vennDiagram(ID_counts[2:4], include = &quot;both&quot;, 
             names = c(&quot;Sample 1&quot;, &quot;Sample 2&quot;, &quot;Sample 3&quot;), 
             circle.col=c(&quot;blue&quot;, &quot;red&quot;, &quot;yellow&quot;))</code></pre>
-<p><img src="vennDiagram_v5_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="Posts_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre class="r"><code>vennDiagram(ID_counts[2:5], include = &quot;both&quot;, 
             names = c(&quot;Sample 1&quot;, &quot;Sample 2&quot;, &quot;Sample 3&quot;, &quot;Control&quot;), 
             circle.col=c(&quot;blue&quot;, &quot;red&quot;, &quot;yellow&quot;, &quot;green&quot;))</code></pre>
-<p><img src="vennDiagram_v5_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+<p><img src="Posts_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
 <p>Limma was written for processing microarray data and the venn diagram function works well following this pipeline:</p>
 <pre class="r"><code>fit &lt;- eBayes(lmFit(Y,x))
 results &lt;- decideTests(fit)
@@ -482,8 +562,8 @@ vennDiagram(a)</code></pre>
 <p>See <a href="https://rdrr.io/bioc/limma/man/ebayes.html" class="uri">https://rdrr.io/bioc/limma/man/ebayes.html</a> for more information</p>
 <hr />
 </div>
-<div id="NonProgramming" class="section level1">
-<h1>Non programming solutions</h1>
+<div id="NonProgramming" class="section level3">
+<h3>Non programming solutions</h3>
 <p>If you just want to make a quick venn diagram, here are some online tools to help you:</p>
 <ul>
 <li>Venny
@@ -514,10 +594,226 @@ vennDiagram(a)</code></pre>
 </ul>
 <p></br></p>
 <p></br></p>
+<hr />
+<hr />
+</div>
+</div>
+<div id="Crime" class="section level1">
+<h1>Little Rock Crime Data</h1>
+<div id="plots" class="section level2">
+<h2>Plots</h2>
+<div id="a-quick-look-through-crime-in-little-rock-beginning-with-bar-charts-and-ending-with-maps." class="section level5">
+<h5>A quick look through crime in Little Rock, beginning with bar charts and ending with maps.</h5>
+</div>
+<div id="load-libraries-and-data" class="section level3">
+<h3>Load libraries and data</h3>
+<div id="load-libraries" class="section level5">
+<h5>Load libraries</h5>
+<pre class="r"><code>library(here)    # find files
+library(dplyr)   # data munging
+library(forcats) # frequency in ggplots
+library(ggplot2) # plots
+library(ggmap)   # maps
+library(sf)      # spatial features
+library(viridis) #  add colors to plot</code></pre>
+</div>
+<div id="load-and-clean-data" class="section level5">
+<h5>Load and Clean Data</h5>
+<p>I downloaded the crime data from this site: <a href="https://data.littlerock.gov/Safe-City/Little-Rock-mydata-Department-Statistics-2017-to-Y/bz82-34ep" class="uri">https://data.littlerock.gov/Safe-City/Little-Rock-mydata-Department-Statistics-2017-to-Y/bz82-34ep</a> in 2018. It includes the crime data in Little Rock for all of 2017 and some of 2018.</p>
+<pre class="r"><code># Load Data
+mydata &lt;- read.csv(&quot;./Little_Rock_Police_Department_Statistics_2017_to_Year_to_Date_2018.csv&quot;, na.strings=&quot;&quot;)
+
+# Format dates
+mydata$date &lt;- as.Date(mydata$INCIDENT_DATE, format = &quot;%m/%d/%Y&quot;)
+mydata$datetime &lt;- as.POSIXct(strptime(mydata$INCIDENT_DATE,format=&#39;%m/%d/%Y %I:%M:%S %p&#39;))
+
+# Create month and day variable
+mydata$months &lt;- factor(months(mydata$datetime),levels=c(&quot;January&quot;,&quot;February&quot;,&quot;March&quot;, &quot;April&quot;,&quot;May&quot;, 
+                                                         &quot;June&quot;, &quot;July&quot;,&quot;August&quot;,&quot;September&quot;, &quot;October&quot;,
+                                                         &quot;November&quot;,&quot;December&quot;),ordered=TRUE)
+mydata$day &lt;- weekdays(mydata$datetime)
+mydata$day &lt;- factor(mydata$day, levels=c(&quot;Sunday&quot;, &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;,
+                                                  &quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;))
+
+# Change zip code from a numeric variable to a factor 
+mydata$ZIP &lt;- as.factor(as.character(mydata$ZIP))</code></pre>
+<p>I only want to look at crime within Little Rock in 2017. Here I remove 2018 data, duplicates, and a couple of data points that were from areas outside of Little Rock:</p>
+<pre class="r"><code>mydata &lt;- mydata %&gt;% 
+  filter(is.na(ZIP)|ZIP != &quot;72114&quot;, # remove North Little Rock zip
+                 LATITUDE &lt; 34.88169, # remove outlier location
+                 date &lt; as.Date(&quot;2018-01-01&quot;)) %&gt;%  # select only 2017
+  unique() </code></pre>
+</div>
+</div>
+<div id="a-quick-look-at-the-data" class="section level3">
+<h3>A quick look at the data</h3>
+<pre class="r"><code>ggplot(mydata, aes(x=fct_infreq(OFFENSE_DESCRIPTION))) +
+  geom_bar() + geom_text(stat=&#39;count&#39;, aes(label=..count..), vjust=-0.5)+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        axis.title.x=element_blank()) + ggtitle(&quot;Crime frequency by offense&quot;) +
+  expand_limits(y=3750)</code></pre>
+<p><img src="Posts_files/figure-html/unnamed-chunk-15-1.png" width="672" /> Hmm… interesting. I want to get a better look at the data so I’m going to remove the bottom in frequent categories.</p>
+<pre class="r"><code># Filter - remove least frequent ### 
+mydata &lt;- mydata %&gt;%
+  group_by(OFFENSE_DESCRIPTION) %&gt;%
+  filter(n() &gt;= 40)</code></pre>
+<div id="days-of-the-week" class="section level4">
+<h4>Days of the week</h4>
+<p>Does the day of the week make a difference?</p>
+<pre class="r"><code>mydata %&gt;% filter(!is.na(day)) %&gt;%
+  group_by(day) %&gt;% 
+  mutate(count = n()) %&gt;%
+  ggplot(aes(x=day)) + ggtitle(&quot;Crime frequency by days of the week&quot;) +
+  geom_bar()</code></pre>
+<p><img src="Posts_files/figure-html/unnamed-chunk-17-1.png" width="672" /> It looks like there’s definitely less crime on Sunday. Let’s run a quick chi-square test…</p>
+<pre class="r"><code>tmp &lt;- mydata %&gt;% filter(!is.na(day)) %&gt;%
+  group_by(day) %&gt;% 
+  transmute(count = n()) %&gt;% unique()
+
+chisq.test(tmp$count)</code></pre>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  tmp$count
+## X-squared = 25.627, df = 6, p-value = 0.0002613</code></pre>
+<p>Yes, the proportion of crimes committed is not the same for each day of the week.</p>
+<p>Breaking it down by offense type:</p>
+<pre class="r"><code>mydata %&gt;% filter(!is.na(day)) %&gt;% 
+ggplot(aes(x=fct_infreq(OFFENSE_DESCRIPTION), fill=day)) +
+  geom_bar(position=&quot;dodge&quot;) + ggtitle(&quot;Crime Freqeuncy: Offense type and days of the week&quot;) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        axis.title.x=element_blank())</code></pre>
+<p><img src="Posts_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+</div>
+<div id="crime-by-month" class="section level4">
+<h4>Crime by month</h4>
+<pre class="r"><code>mydata %&gt;% filter(!is.na(months))%&gt;%
+ggplot(aes(x=months, fill=OFFENSE_DESCRIPTION)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.x=element_blank()) + ggtitle(&quot;Crime frequency by month&quot;)</code></pre>
+<p><img src="Posts_files/figure-html/unnamed-chunk-20-1.png" width="672" /> It looks like there’s an overall increase in crime during the summer. However, it seems to be mainly driven by theft from motor vehicle. Let’s go deeper:</p>
+<pre class="r"><code>filter(mydata, !is.na(months)) %&gt;%
+  ggplot(aes(x=fct_infreq(OFFENSE_DESCRIPTION), fill=months)) +
+  geom_bar(position=&quot;dodge&quot;) + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        axis.title.x=element_blank()) + ggtitle(&quot;Crime frequency: Offense type in each month&quot;)</code></pre>
+<p><img src="Posts_files/figure-html/unnamed-chunk-21-1.png" width="672" /> Theft from motor vehicle definitely increases during the summer. It looks like “all other larcency” also increases.</p>
+</div>
+</div>
+</div>
+<div id="maps" class="section level2">
+<h2>Maps</h2>
+<p>This is my first time using r to make maps. I found these two sites especially useful and most of my code is based off of them. If you’re new to making maps, I highly recommend checking out these tutorials:</p>
+<p><a href="https://austinwehrwein.com/digital-humanities/creating-a-density-map-in-r-with-zipcodes/" class="uri">https://austinwehrwein.com/digital-humanities/creating-a-density-map-in-r-with-zipcodes/</a></p>
+<p><a href="http://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html" class="uri">http://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html</a></p>
+<pre class="r"><code># Remove data missing location 
+mydata &lt;- filter(mydata, !is.na(LOCATION_ADDRESS))</code></pre>
+<div id="download-zip-codes-to-plot-by-zip" class="section level3">
+<h3>Download zip codes to plot by zip</h3>
+<pre class="r"><code>us_zip &lt;- st_read(here(&quot;zip_codes&quot;, &quot;cb_2017_us_zcta510_500k.shp&quot;), quiet = TRUE)
+little_rock &lt;- filter(us_zip, ZCTA5CE10 %in% mydata$ZIP) # Filter US ZIPs to LR </code></pre>
+<pre class="r"><code># Get crime frequency for each zip code
+zips &lt;- mydata %&gt;% filter(!is.na(ZIP)) %&gt;% 
+  group_by(ZIP) %&gt;% 
+  mutate(count = n()) %&gt;% 
+  select(count, ZIP) %&gt;% unique()
+
+little_rock &lt;- merge(little_rock, zips, by.x = &quot;ZCTA5CE10&quot;, by.y=&quot;ZIP&quot;)</code></pre>
+</div>
+<div id="map-with-counties-using-geom_sf" class="section level3">
+<h3>Map with counties using geom_sf</h3>
+<pre class="r"><code>lrbox &lt;- make_bbox(lon = mydata$LONGITUDE, lat = mydata$LATITUDE, f = .5) # make a large box for zip codes
+lrmap &lt;- get_map(location = lrbox, maptype = &quot;toner-lite&quot;, source = &quot;stamen&quot;)
+
+ggmap(lrmap) + 
+  geom_sf(data = little_rock, aes(fill = count), inherit.aes = FALSE, lwd=0.4) + 
+  scale_fill_viridis(option = &quot;C&quot;,direction=-1, alpha=0.5) +
+  labs(title = &quot;Little Rock Crime Density by Zip Code&quot;) + 
+  ylim(34.55, 34.85) + xlim(92.55,92.2) </code></pre>
+<p><img src="Posts_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<pre class="r"><code>lrbox &lt;- make_bbox(lon = mydata$LONGITUDE, lat = mydata$LATITUDE, f = .05) # make a box around only crime data
+lrmap &lt;- get_map(location = lrbox, maptype = &quot;toner-lite&quot;, source = &quot;stamen&quot;)
+
+ggmap(lrmap) + 
+  geom_point(data = mydata, mapping = aes(x = LONGITUDE, y = LATITUDE), alpha=0.07) +
+  labs(title = &quot;Little Rock Crime Data 2017&quot;,
+       fill = NULL) +
+  theme(axis.title = element_blank())</code></pre>
+<p><img src="Posts_files/figure-html/unnamed-chunk-26-1.png" width="672" /> The plot above is interesting because the crime dots highlight some of the roads that aren’t very visible on this stylized map. The string of dots running east-west in the south is Baseline. The road running at a diagonal is Rodney Parham. Both of these locations have a lot of shops and businesses. In the east by the “c” in Little Rock is the downtown area.</p>
+<pre class="r"><code>ggmap(lrmap) + 
+  geom_density2d(data=mydata, mapping = aes(x = LONGITUDE, y = LATITUDE), size=0.3) +
+  stat_density2d(data=mydata,
+                 aes(x=LONGITUDE, y = LATITUDE, fill = ..level.., alpha = ..level..),
+                 size = 0.01,bins = 16, geom = &quot;polygon&quot;) + 
+  scale_fill_gradient(low = &quot;black&quot;, high = &quot;red&quot;) + 
+  scale_alpha(range = c(0, 0.3), guide = FALSE) + labs(title=&quot;Little Rock Crime Data 2017&quot;)</code></pre>
+<p><img src="Posts_files/figure-html/unnamed-chunk-27-1.png" width="672" /> The high density area in the west is a major shopping area. I wondered how much of the crime in those areas are due to shoplifting so I made a shoplifting map below:</p>
+<pre class="r"><code>shoplifting &lt;- filter(mydata, OFFENSE_DESCRIPTION==&quot;SHOPLIFTING&quot;)
+ggmap(lrmap) + 
+  geom_density2d(data=shoplifting, mapping = aes(x = LONGITUDE, y = LATITUDE), size=0.3) +
+  stat_density2d(data=shoplifting,
+                 aes(x=LONGITUDE, y = LATITUDE, fill = ..level.., alpha = ..level..),
+                 size = 0.01,bins = 16, geom = &quot;polygon&quot;) + 
+  scale_fill_gradient(low = &quot;black&quot;, high = &quot;red&quot;) + 
+  scale_alpha(range = c(0, 0.3), guide = FALSE) + labs(title=&quot;Shoplifting in Little Rock 2017&quot;)</code></pre>
+<p><img src="Posts_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<pre class="r"><code>temp &lt;- mydata %&gt;%
+  group_by(OFFENSE_DESCRIPTION) %&gt;%
+  filter(n() &gt;= 1000, OFFENSE_DESCRIPTION != &quot;SHOPLIFTING&quot;)
+
+ggmap(lrmap) + 
+  geom_density2d(data=temp, mapping = aes(x = LONGITUDE, y = LATITUDE), size=0.3) +
+  stat_density2d(data=temp,
+                 aes(x=LONGITUDE, y = LATITUDE, fill = ..level.., alpha = ..level..),
+                 size = 0.01,bins = 16, geom = &quot;polygon&quot;) + 
+  scale_fill_gradient(low = &quot;black&quot;, high = &quot;red&quot;) + 
+  scale_alpha(range = c(0, 0.3), guide = FALSE) + labs(title=&quot;Crime Density by Offense&quot;) +
+  facet_wrap(~OFFENSE_DESCRIPTION)</code></pre>
+<p><img src="Posts_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+</div>
+<div id="which-locations-report-crime-the-most" class="section level3">
+<h3>Which locations report crime the most?</h3>
+<pre class="r"><code>location_freq &lt;- sort(table(mydata$LOCATION_ADDRESS), decreasing = TRUE)[1:15]
+
+most_common_locations &lt;- mydata[which(mydata$LOCATION_ADDRESS %in% names(location_freq)),]
+
+temp &lt;- most_common_locations %&gt;% 
+  group_by(OFFENSE_DESCRIPTION) %&gt;%
+  filter(n() &gt;= 40)
+ggplot(temp, aes(x=fct_infreq(LOCATION_ADDRESS), fill=OFFENSE_DESCRIPTION)) +
+  geom_bar() + 
+  theme_bw() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        axis.title.x=element_blank()) + scale_fill_brewer(palette = &quot;Set3&quot;)</code></pre>
+<p><img src="Posts_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<div id="some-observations" class="section level4">
+<h4>Some observations:</h4>
+<div id="shoplifting-at-shopping-centers" class="section level5">
+<h5><strong>Shoplifting at shopping centers</strong></h5>
+<p>As you can probably guess by the high frequency of calls that report shoplifting, the majority of these locations host shopping centers. And most of the shopping centers have multiple business located at the same address.</p>
+</div>
+<div id="no-shoplifting-at-the-airport" class="section level5">
+<h5><strong>No shoplifting at the Airport!</strong></h5>
+<p>Its a small airport and, except for Starbucks, all the stores are inside the secure area. But there’s a lot of motor vehicle theft.</p>
+</div>
+<div id="no-stars-here" class="section level5">
+<h5><strong>No stars here</strong></h5>
+<p>Sadly, 1516 cumberland hosts a nursing home with 1 star out of 7 google reviews and 5001 w 65th is home to an apartment building with 1.7 stars out of 15 google reviews.</p>
+</div>
+<div id="hospitals-and-the-problem-with-using-addresses" class="section level5">
+<h5><strong>Hospitals and the problem with using addresses</strong></h5>
+<p>Two out of the three major hospitals are in this graph and both have a lot of theft from motor vehicles. I am a little surprised that the third hospital is not on here and I think their are two main reasons for this: 1)It is really a sprawling facility and most of the crime likely happens on the surrounding streets. 2) The main parking deck is under the facility and parking is tightly monitered. So even though parking there is a hastle, it does seem to reduce the amount of break-ins. And the free parking lots that the students and nurses park at are pretty far away from the main hospital and are located at a different address so any break-ins occuring there wouldn’t be included in the count as they are for the other hospitals.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
