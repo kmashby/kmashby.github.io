@@ -1,7 +1,9 @@
-title: Your awesome title
+title: Kristin
 author: GitHub User
-description: > # this means to ignore newlines until "show_exerpts:"
-  Data science portfolio
+description: Slate is a theme for GitHub Pages.
+show_downloads: true
+google_analytics:
+theme: jekyll-theme-slate
 
 show_excerpts: false # set to true to show excerpts on the homepage
 
@@ -12,7 +14,6 @@ minima:
 
   # generate social links in footer
   social_links:
-    twitter: jekyllrb
     github:  jekyll
     linkedin: jekyll
     # dribbble: jekyll
@@ -38,9 +39,6 @@ minima:
 # this and add the path to the pages in order as they should show up
 #header_pages:
 # - about.md
-
-# Build settings
-theme: minima
 
 plugins:
  - jekyll-feed
