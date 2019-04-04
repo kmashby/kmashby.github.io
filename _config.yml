@@ -1,5 +1,5 @@
 title: "Blog Title"
-author: "Blog Author"
+author: "Kristin Ashby"
 description: "Really cool blog about ... something"
 lang: "en"
 
@@ -23,15 +23,14 @@ navigation:                  # (optional) site navigation in the header
   - README.md
 
 icons:                       # (optional) icons in the header, see http://fontawesome.com/icons
-  envelope: "mailto:niklasbuschmann@users.noreply.github.com"
-  github: "https://github.com/niklasbuschmann/contrast"
-  rss: "/contrast/feed.xml"
+  github: "http://github.com/kmashby"
+  linkedin: "https://www.linkedin.com/in/kristin-mceuen-ashby-94573685/"
 
 comments:                    # embed disqus or isso comments
 #  disqus: ""
 #  isso: ""
 
-plugins: 
+plugins:
  - jekyll-feed
  - jekyll-paginate
  - jekyll-default-layout
