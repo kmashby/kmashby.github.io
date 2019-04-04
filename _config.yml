@@ -14,15 +14,12 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 lang: en-US
-title: "Kristin Ashby"
+title: Kristin Ashby
 email:
-description: "Data science portfolio"
+description: Data science portfolio
 baseurl: # the optional subpath of your site, e.g. "/blog"
 url: "https://kmashby.github.io"
-author: "Kristin Ashby"
-  name: "Kristin Ashby"
-  twitter:
-  picture:
+author: Kristin Ashby
 twitter_username:
 github_username: kmashby
 logo: # path of site logo, e.g. "/assets/images/logo.png"
