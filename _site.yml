@@ -1,0 +1,18 @@
+name: "Kristin Ashby"
+navbar:
+  title: "Kristin Ashby"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Posts"
+      href: vennDiagram_v5.html
+    - text: "About" 
+      href: about.html
+  right:
+    - icon: fa-github fa-lg
+      href: http://github.com/kmashby
+    - icon: fa-linkedin fa-lg
+      href: https://www.linkedin.com/in/kristin-mceuen-ashby-94573685/
+output:
+  html_document:
+    theme: flatly
